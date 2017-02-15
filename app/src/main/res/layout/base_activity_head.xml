@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/y128"
-    android:background="#212121">
+    android:layout_height="@dimen/y148"
+    android:background="#fbfbfb">
 
 
     <ImageView
         android:id="@+id/iv_base_leftimage"
-        android:layout_width="@dimen/y188"
-        android:layout_height="@dimen/y148"
-        android:paddingTop="@dimen/y38"
-        android:paddingBottom="@dimen/y38"
-        android:paddingRight="@dimen/x70"
+        android:layout_width="@dimen/x104"
+        android:layout_height="@dimen/y104"
+        android:padding="@dimen/y20"
+        android:layout_marginLeft="@dimen/x26"
         android:layout_centerVertical="true"
+        android:background="@drawable/bg_icon_press"
         android:visibility="gone"/>
     <TextView
         android:id="@+id/tv_base_centerText"
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:text="智能鞋垫"
         android:textSize="@dimen/x52"
-        android:textColor="#FFFFFF"
+        android:textColor="#3b3b3b"
         android:layout_centerInParent="true" />
     <TextView
         android:id="@+id/tv_base_lefttext"
@@ -45,11 +45,12 @@
         android:visibility="gone"/>
     <ImageView
         android:id="@+id/iv_base_rightimage"
-        android:layout_width="@dimen/x52"
-        android:layout_height="@dimen/x52"
-        android:layout_marginRight="@dimen/x36"
-        android:layout_alignParentRight="true"
+        android:layout_width="@dimen/x104"
+        android:layout_height="@dimen/y104"
+        android:padding="@dimen/y20"
+        android:layout_marginRight="@dimen/x26"
         android:layout_centerVertical="true"
-        android:visibility="gone"/>
+        android:layout_alignParentRight="true"
+        android:background="@drawable/bg_icon_press"/>
 
 </RelativeLayout>
