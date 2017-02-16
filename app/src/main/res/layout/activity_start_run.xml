@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_start_run"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.amsu.intelligentinsole.activity.StartRunActivity">
+
+    <include layout="@layout/base_activity_head"
+        android:id="@+id/rl_base_head"></include>
+
+    <com.amap.api.maps2d.MapView
+        android:id="@+id/mv_startrun_map"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y680"
+        android:layout_below="@+id/rl_base_head"/>
+
+    <RelativeLayout
+        android:layout_width="@dimen/x496"
+        android:layout_height="@dimen/y88"
+        android:layout_below="@+id/rl_base_head"
+        android:background="@drawable/bg_rl_roundcent1"
+        android:layout_marginLeft="@dimen/x36"
+        android:layout_marginTop="@dimen/x36">
+        <RelativeLayout
+            android:id="@+id/rl_startrun_r1"
+            android:layout_width="@dimen/x156"
+            android:layout_height="@dimen/x64"
+            android:background="@drawable/bg_rl_roundcent2"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x10"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/tv_startrun_gps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GPS"
+                android:textSize="@dimen/x36"
+                android:textColor="#4c4c4c"
+                android:layout_centerVertical="true"/>
+            <ImageView
+                android:id="@+id/iv_startrun_gpsstate"
+                android:layout_width="@dimen/x32"
+                android:layout_height="@dimen/y32"
+                android:layout_toRightOf="@+id/tv_startrun_gps"
+                android:layout_marginLeft="@dimen/x12"
+                android:src="@drawable/gps1"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/rl_startrun_r1"
+            android:layout_marginLeft="@dimen/x20"
+            android:text="建议绕开高楼大厦"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/x36"
+            android:textColor="#FFFFFF"/>
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="@dimen/x352"
+        android:layout_height="@dimen/x352"
+        android:onClick="startRun"
+        android:layout_below="@+id/mv_startrun_map"
+        android:layout_marginTop="@dimen/y360"
+        android:src="@drawable/ready_start"
+        android:layout_centerHorizontal="true"/>
+
+
+</RelativeLayout>

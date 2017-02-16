@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/x180"
+    android:padding="@dimen/x36">
+    <ImageView
+        android:id="@+id/iv_item_icon"
+        android:layout_width="@dimen/x96"
+        android:layout_height="@dimen/y96"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ready_start"/>
+    <TextView
+        android:id="@+id/tv_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="智能鞋垫"
+        android:textSize="@dimen/x48"
+        android:textColor="#383838"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/iv_item_icon"
+        android:layout_marginLeft="@dimen/x40"/>
+    <ImageView
+        android:id="@+id/iv_item_more"
+        android:layout_width="@dimen/x40"
+        android:layout_height="@dimen/y40"
+        android:src="@drawable/my_more"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"/>
+
+</RelativeLayout>

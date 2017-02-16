@@ -1,5 +1,6 @@
 package com.amsu.intelligentinsole.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -56,14 +57,14 @@ public class HomeActivity extends BaseActivity implements LocationSource,
         getIv_base_leftimage().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(HomeActivity.this,MeActivity.class));
             }
         });
 
         getIv_base_rightimage().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(HomeActivity.this,StartRunActivity.class));
             }
         });
 
