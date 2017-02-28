@@ -145,8 +145,10 @@ public class StartRunActivity extends BaseActivity implements LocationSource,
             switch (v.getId()){
                 case R.id.bt_opengps_cancel:
                     bottomSheetDialog.dismiss();
+
                     break;
                 case R.id.bt_opengps_ok:
+                    bottomSheetDialog.dismiss();
                     //跳到设置页面
                     // 转到手机设置界面，用户设置GPS
                     Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
@@ -157,7 +159,15 @@ public class StartRunActivity extends BaseActivity implements LocationSource,
     }
 
     public void startRun(View view) {
-        initGPS();
+        //initGPS();
+        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        // 判断GPS模块是否开启，如果没有则开启
+        if (!locationManager.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER)) {
+            chooseOpenGps();
+        }
+        else {
+            startActivity(new Intent(StartRunActivity.this,RunningActivity.class));
+        }
     }
 
     @Override

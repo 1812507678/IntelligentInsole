@@ -107,5 +107,9 @@ public abstract class BaseActivity extends Activity {
         rl_base_head.setBackgroundColor(Color.parseColor(color));
     }
 
+    public void setCenterTextColor(String color){
+        tv_base_centerText.setTextColor(Color.parseColor(color));
+    }
+
 
 }

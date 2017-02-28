@@ -29,6 +29,7 @@ public class MeActivity extends BaseActivity {
     @Override
     protected void initView() {
         setHeadBackgroudColor("#ff7e00");
+        setCenterTextColor("#FFFFFF");
         setCenterText("我的");
         setLeftImage(R.drawable.back_icon);
         getIv_base_leftimage().setOnClickListener(new View.OnClickListener() {

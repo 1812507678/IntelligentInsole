@@ -32,7 +32,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <!-- 3.2.0版本增加 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
     <application
         android:name=".application.MyApplication"
@@ -50,15 +50,23 @@
             </intent-filter>
         </activity>
 
+        <!--高德地图-->
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="f9ec399ad22e8bc2ffe4ba5d03da7ba9" />
         <!-- 定位需要的服务 -->
         <service android:name="com.amap.api.location.APSService" />
 
-        <activity android:name=".activity.MeActivity" />
+        <activity android:name=".activity.MeActivity"></activity>
         <activity android:name=".activity.SearchDevicehActivity" />
-        <activity android:name=".activity.StartRunActivity"></activity>
+        <activity android:name=".activity.StartRunActivity" />
+        <activity android:name=".activity.RunningActivity">
+
+        </activity>
+        <activity android:name=".activity.SportAnalysisActivity">
+
+        </activity>
+        <activity android:name=".activity.RunTrailActivity"></activity>
     </application>
 
 </manifest>
