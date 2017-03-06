@@ -220,7 +220,8 @@
             android:layout_height="@dimen/y461"
             android:layout_below="@+id/rl_home_r2"
             android:layout_marginRight="@dimen/x26"
-            android:layout_marginLeft="@dimen/x26"/>
+            android:layout_marginLeft="@dimen/x26"
+            android:layout_marginBottom="@dimen/x20"/>
 
 
     </RelativeLayout>

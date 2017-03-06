@@ -139,6 +139,13 @@ public class MyUtil {
         return format.format(date);
     }
 
+    public static String getCueMapDate(long time) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss ");
+        Date curDate = new Date(time);
+        String date = formatter.format(curDate);
+        return date;
+    }
+
 
     //获取app的版本名称
     public static String getVersionName(Context context) {

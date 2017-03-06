@@ -255,16 +255,18 @@ public class StartRunActivity extends BaseActivity implements LocationSource,
                     //addCircle(location, amapLocation.getAccuracy());//添加定位精度圆
                     addMarker(location);//添加定位图标
                     mSensorHelper.setCurrentMarker(mLocMarker);//定位图标旋转
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 18));
                 } else {
                     //mCircle.setCenter(location);
                     //mCircle.setRadius(amapLocation.getAccuracy());
                     mLocMarker.setPosition(location);
+                    mMap.moveCamera(CameraUpdateFactory.changeLatLng(location));
                 }
-                float zoom = mMap.getCameraPosition().zoom;
+                /*float zoom = mMap.getCameraPosition().zoom;
                 if (zoom==10.0){
                     zoom=18;
                 }
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, zoom));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, zoom));*/
 
                 /*mListener.onLocationChanged(aMapLocation);// 显示系统小蓝点
                 mMap.moveCamera(CameraUpdateFactory.zoomTo(zoom));*/

@@ -242,18 +242,18 @@
                         android:textSize="@dimen/x28"
                         android:textColor="#9d9d9f"
                         android:text="高度：厘米"/>
-                    <View
-                        android:id="@+id/view1"
+                    <com.amsu.intelligentinsole.view.HeightCurveView
+                        android:id="@+id/hv_analysis_line"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/y396"
                         android:layout_below="@+id/tv_text2"
                         android:layout_marginTop="@dimen/y48"
-                        android:background="#999999"/>
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/view1"
+                        android:layout_below="@+id/hv_analysis_line"
                         android:layout_marginTop="@dimen/y56"
                         android:textSize="@dimen/x28"
                         android:textColor="#9d9d9f"

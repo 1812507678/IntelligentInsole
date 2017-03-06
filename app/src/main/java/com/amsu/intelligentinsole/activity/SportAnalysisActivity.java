@@ -14,8 +14,11 @@ import android.widget.TextView;
 import com.amsu.intelligentinsole.R;
 import com.amsu.intelligentinsole.common.BaseActivity;
 import com.amsu.intelligentinsole.util.MyUtil;
+import com.amsu.intelligentinsole.view.HeightCurveView;
 
 public class SportAnalysisActivity extends BaseActivity {
+
+    private HeightCurveView hv_analysis_line;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,8 @@ public class SportAnalysisActivity extends BaseActivity {
         sv_anal_resullt.setOnTouchListener(new View.OnTouchListener() {
             float startY;
             boolean isShow = true;
+            boolean isNeedShow = false;
+
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 int action = event.getAction();
@@ -51,21 +56,28 @@ public class SportAnalysisActivity extends BaseActivity {
                     startY = event.getY();
                 }
                 else if (action==MotionEvent.ACTION_MOVE){
-                    if (isShow){
-                        float y = event.getY();
-                        if (Math.abs(startY-y)> MyUtil.dp2px(SportAnalysisActivity.this,5)){
-                            //滑动
+
+                    float y = event.getY();
+                    if (startY-y > MyUtil.dp2px(SportAnalysisActivity.this,5)){
+                        //向下滑动
+                        if (isShow){
                             ll_dump.setVisibility(View.GONE);
                             isShow = false;
                         }
                     }
+                    else if (y-startY> MyUtil.dp2px(SportAnalysisActivity.this,5)){
+                        //向上滑动
+                        if (!isShow){
+                            isNeedShow = true;
+                        }
+                    }
                 }
                 else if (action==MotionEvent.ACTION_UP){
-                    if (!isShow){
+                    if (isNeedShow && !isShow){
                         ll_dump.setVisibility(View.VISIBLE);
                         sv_anal_resullt.setVisibility(View.VISIBLE);
-
                         isShow = true;
+                        isNeedShow = false;
                     }
                 }
                 return false;
@@ -79,15 +91,25 @@ public class SportAnalysisActivity extends BaseActivity {
         TextView tv_analy_toeoutleft = (TextView) findViewById(R.id.tv_analy_toeoutleft);
         TextView tv_analy_toeoutright = (TextView) findViewById(R.id.tv_analy_toeoutright);
 
+        hv_analysis_line = (HeightCurveView) findViewById(R.id.hv_analysis_line);
+
+
     }
 
     @Override
     protected void initData() {
+        int[] data = new int[50];
+
+        for (int i=0;i<data.length;i++){
+            data[i] = (int) (Math.random()*(65-60) + 60);
+        }
+        hv_analysis_line.setData(data,50);
+
 
     }
 
     public void stopRunning(View view) {
-        startActivity(new Intent(SportAnalysisActivity.this,RunTrailActivity.class));
+        startActivity(new Intent(SportAnalysisActivity.this,SportFinishActivity.class));
         RunningActivity.activity.finish();
         finish();
     }

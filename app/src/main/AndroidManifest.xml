@@ -41,7 +41,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,14 +49,14 @@
             </intent-filter>
         </activity>
 
-        <!--高德地图-->
+        <!-- 高德地图 -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="f9ec399ad22e8bc2ffe4ba5d03da7ba9" />
         <!-- 定位需要的服务 -->
         <service android:name="com.amap.api.location.APSService" />
 
-        <activity android:name=".activity.MeActivity"></activity>
+        <activity android:name=".activity.MeActivity" />
         <activity android:name=".activity.SearchDevicehActivity" />
         <activity android:name=".activity.StartRunActivity" />
         <activity android:name=".activity.RunningActivity">
@@ -66,7 +65,13 @@
         <activity android:name=".activity.SportAnalysisActivity">
 
         </activity>
-        <activity android:name=".activity.RunTrailActivity"></activity>
+
+        <activity android:name=".activity.RunTrailMapActivity">
+
+        </activity>
+        <activity android:name=".activity.SportFinishActivity">
+
+        </activity>
     </application>
 
 </manifest>

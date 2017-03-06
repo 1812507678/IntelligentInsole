@@ -3,6 +3,7 @@ package com.amsu.intelligentinsole.common;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -10,7 +11,7 @@ import android.widget.TextView;
 
 import com.amsu.intelligentinsole.R;
 
-public abstract class BaseActivity extends Activity {
+public abstract class BaseActivity extends FragmentActivity {
     public ImageView iv_base_leftimage;
     public TextView tv_base_rightText;
     public TextView tv_base_centerText;
