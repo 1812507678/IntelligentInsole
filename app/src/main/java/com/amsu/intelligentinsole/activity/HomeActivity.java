@@ -128,14 +128,13 @@ public class HomeActivity extends BaseActivity implements LocationSource,
         // 自定义系统定位蓝点
         MyLocationStyle myLocationStyle = new MyLocationStyle();
         // 自定义定位蓝点图标
-        myLocationStyle.myLocationIcon(BitmapDescriptorFactory.
-                fromResource(R.drawable.gps_point));
+        myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromResource(R.drawable.gps_point));
         // 自定义精度范围的圆形边框颜色
-        myLocationStyle.strokeColor(STROKE_COLOR);
+        //myLocationStyle.strokeColor(STROKE_COLOR);
         //自定义精度范围的圆形边框宽度
-        myLocationStyle.strokeWidth(5);
+        //myLocationStyle.strokeWidth(5);
         // 设置圆形的填充颜色
-        myLocationStyle.radiusFillColor(FILL_COLOR);
+        //myLocationStyle.radiusFillColor(FILL_COLOR);
         // 将自定义的 myLocationStyle 对象添加到地图上
         mMap.setMyLocationStyle(myLocationStyle);
     }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -42,12 +43,10 @@ public class RunningActivity extends BaseActivity implements
     public static Activity activity;
     //声明mLocationOption对象
     public AMapLocationClientOption mLocationOption = null;
-    private AMapLocationClient mlocationClient;
-    private PathRecord record;    //存放未纠偏轨迹记录信息
+    public static AMapLocationClient mlocationClient;
+    public static PathRecord record;    //存放未纠偏轨迹记录信息
     private List<TraceLocation> mTracelocationlist = new ArrayList<>();   //偏轨后轨迹
-    private DbAdapter DbHepler;
-    private long mStartTime;
-    private long mEndTime;
+    public static long mStartTime;
 
 
 
@@ -110,30 +109,16 @@ public class RunningActivity extends BaseActivity implements
                 return false;
             }
         });
-
-
-
-
     }
 
     @Override
     protected void initData() {
         mlocationClient = new AMapLocationClient(this);
-        //初始化定位参数
         mLocationOption = new AMapLocationClientOption();
-        //设置定位监听
         mlocationClient.setLocationListener(this);
-        //设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
         mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
-        //设置定位间隔,单位毫秒,默认为2000ms
         mLocationOption.setInterval(2000);
-        //设置定位参数
         mlocationClient.setLocationOption(mLocationOption);
-        // 此方法为每隔固定时间会发起一次定位请求，为了减少电量消耗或网络流量消耗，
-        // 注意设置合适的定位时间的间隔（最小间隔支持为2000ms），并且在合适时间调用stopLocation()方法来取消定位请求
-        // 在定位结束后，在合适的生命周期调用onDestroy()方法
-        // 在单次定位情况下，定位无论成功与否，都无需调用stopLocation()方法移除请求，定位sdk内部会移除
-        //启动定位
         mlocationClient.startLocation();
 
         if (record==null){
@@ -141,10 +126,7 @@ public class RunningActivity extends BaseActivity implements
             mStartTime = System.currentTimeMillis();
             record.setDate(MyUtil.getCueMapDate(mStartTime));
         }
-
     }
-
-
 
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
@@ -152,86 +134,7 @@ public class RunningActivity extends BaseActivity implements
         if (aMapLocation!=null){
             record.addpoint(aMapLocation);
             mTracelocationlist.add(Util.parseTraceLocation(aMapLocation));
-
         }
-
-    }
-
-    //保存数据到数据库
-    protected long saveRecord(List<AMapLocation> list, String time) {
-        if (list != null && list.size() > 0) {
-            mEndTime = System.currentTimeMillis();
-            DbHepler = new DbAdapter(this);
-            DbHepler.open();
-            String duration = getDuration();
-            float distance = getDistance(list);
-            String average = getAverage(distance);
-            String pathlineSring = getPathLineString(list);
-            AMapLocation firstLocaiton = list.get(0);
-            AMapLocation lastLocaiton = list.get(list.size() - 1);
-            String stratpoint = amapLocationToString(firstLocaiton);
-            String endpoint = amapLocationToString(lastLocaiton);
-            long createrecord = DbHepler.createrecord(String.valueOf(distance), duration, average, pathlineSring, stratpoint, endpoint, time);
-            Log.i(TAG,"createrecord:"+createrecord);
-            DbHepler.close();
-            return createrecord;
-        } else {
-            /*Toast.makeText(RunTrailMapActivity.this, "没有记录到路径", Toast.LENGTH_SHORT)
-                    .show();*/
-            return -1;
-        }
-
-    }
-
-    private String getDuration() {
-        return String.valueOf((mEndTime - mStartTime) / 1000f);
-    }
-
-    private float getDistance(List<AMapLocation> list) {
-        float distance = 0;
-        if (list == null || list.size() == 0) {
-            return distance;
-        }
-        for (int i = 0; i < list.size() - 1; i++) {
-            AMapLocation firstpoint = list.get(i);
-            AMapLocation secondpoint = list.get(i + 1);
-            LatLng firstLatLng = new LatLng(firstpoint.getLatitude(), firstpoint.getLongitude());
-            LatLng secondLatLng = new LatLng(secondpoint.getLatitude(), secondpoint.getLongitude());
-            double betweenDis = AMapUtils.calculateLineDistance(firstLatLng, secondLatLng);
-            distance = (float) (distance + betweenDis);
-        }
-        return distance;
-    }
-
-    private String getAverage(float distance) {
-        return String.valueOf(distance / (float) (mEndTime - mStartTime));
-    }
-
-    private String getPathLineString(List<AMapLocation> list) {
-        if (list == null || list.size() == 0) {
-            return "";
-        }
-        StringBuffer pathline = new StringBuffer();
-        for (int i = 0; i < list.size(); i++) {
-            AMapLocation location = list.get(i);
-            String locString = amapLocationToString(location);
-            pathline.append(locString).append(";");
-        }
-        String pathLineString = pathline.toString();
-        pathLineString = pathLineString.substring(0,
-                pathLineString.length() - 1);
-        return pathLineString;
-    }
-
-    private String amapLocationToString(AMapLocation location) {
-        StringBuffer locString = new StringBuffer();
-        locString.append(location.getLatitude()).append(",");
-        locString.append(location.getLongitude()).append(",");
-        locString.append(location.getProvider()).append(",");
-        locString.append(location.getTime()).append(",");
-        locString.append(location.getSpeed()).append(",");
-        locString.append(location.getBearing());
-        return locString.toString();
     }
 
     class MyOnClickListener implements View.OnClickListener{
@@ -253,20 +156,16 @@ public class RunningActivity extends BaseActivity implements
                     if (runTimerTaskUtil!=null){
                         runTimerTaskUtil.startTime();
                     }
-
                     break;
                 case R.id.tv_run_analysis:
-                    Intent intent1 = new Intent(RunningActivity.this, SportAnalysisActivity.class);
-
-                    startActivity(intent1);
-
+                    startActivity(new Intent(RunningActivity.this, SportAnalysisActivity.class));
                     break;
                 case R.id.tv_run_end:
                     if (runTimerTaskUtil!=null){
                         runTimerTaskUtil.destoryTime();
                         runTimerTaskUtil = null;
                     }
-                    long  createrecord = saveRecord(record.getPathline(), record.getDate());
+                    long  createrecord = Util.saveRecord(record.getPathline(), record.getDate(),RunningActivity.this,mStartTime);
                     mlocationClient.stopLocation();
                     Intent intent = new Intent(RunningActivity.this, SportFinishActivity.class);
                     if (createrecord!=-1){
@@ -274,10 +173,7 @@ public class RunningActivity extends BaseActivity implements
                     }
                     startActivity(intent);
                     finish();
-
                     break;
-
-
             }
         }
     }
@@ -286,5 +182,13 @@ public class RunningActivity extends BaseActivity implements
     protected void onDestroy() {
         super.onDestroy();
         mlocationClient.stopLocation();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK ){
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

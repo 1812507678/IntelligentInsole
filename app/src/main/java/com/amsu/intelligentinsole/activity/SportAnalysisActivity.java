@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.amsu.intelligentinsole.R;
 import com.amsu.intelligentinsole.common.BaseActivity;
+import com.amsu.intelligentinsole.map.Util;
 import com.amsu.intelligentinsole.util.MyUtil;
 import com.amsu.intelligentinsole.view.HeightCurveView;
 
@@ -109,7 +110,14 @@ public class SportAnalysisActivity extends BaseActivity {
     }
 
     public void stopRunning(View view) {
-        startActivity(new Intent(SportAnalysisActivity.this,SportFinishActivity.class));
+        long recordID = Util.saveRecord(RunningActivity.record.getPathline(), RunningActivity.record.getDate(), this, RunningActivity.mStartTime);
+
+        Intent intent = new Intent(SportAnalysisActivity.this, SportFinishActivity.class);
+        if (recordID!=-1){
+            intent.putExtra("createrecord",recordID);
+        }
+        startActivity(intent);
+        RunningActivity.mlocationClient.stopLocation();
         RunningActivity.activity.finish();
         finish();
     }

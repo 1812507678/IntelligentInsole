@@ -103,21 +103,6 @@ public class StartRunActivity extends BaseActivity implements LocationSource,
 
     }
 
-    private void initGPS() {
-        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-        // 判断GPS模块是否开启，如果没有则开启
-        if (!locationManager.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER)) {
-            chooseOpenGps();
-        } else {
-            // 弹出Toast
-//          Toast.makeText(TrainDetailsActivity.this, "GPS is ready",
-//                  Toast.LENGTH_LONG).show();
-//          // 弹出对话框
-//          new AlertDialog.Builder(this).setMessage("GPS is ready")
-//                  .setPositiveButton("OK", null).show();
-        }
-    }
-
     private void chooseOpenGps() {
         bottomSheetDialog = new BottomSheetDialog(StartRunActivity.this);
         View inflate = LayoutInflater.from(this).inflate(R.layout.choose_opengps_dailog, null);

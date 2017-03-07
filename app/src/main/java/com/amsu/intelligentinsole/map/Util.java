@@ -1,6 +1,10 @@
 package com.amsu.intelligentinsole.map;
 
+import android.content.Context;
+import android.util.Log;
+
 import com.amap.api.location.AMapLocation;
+import com.amap.api.maps.AMapUtils;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.trace.TraceLocation;
 
@@ -97,4 +101,81 @@ public class Util {
 		}
 		return locations;
 	}
+
+    //保存数据到数据库
+    public static long saveRecord(List<AMapLocation> list, String time, Context context,long startTime) {
+        if (list != null && list.size() > 0) {
+            long mEndTime = System.currentTimeMillis();
+            DbAdapter  dbAdapter = new DbAdapter(context);
+            dbAdapter.open();
+            String duration = getDuration(startTime,mEndTime);
+            float distance = getDistance(list);
+            String average = getAverage(distance,startTime,mEndTime);
+            String pathlineSring = getPathLineString(list);
+            AMapLocation firstLocaiton = list.get(0);
+            AMapLocation lastLocaiton = list.get(list.size() - 1);
+            String stratpoint = amapLocationToString(firstLocaiton);
+            String endpoint = amapLocationToString(lastLocaiton);
+            long createrecord = dbAdapter.createrecord(String.valueOf(distance), duration, average, pathlineSring, stratpoint, endpoint, time);
+            //Log.i(TAG,"createrecord:"+createrecord);
+            dbAdapter.close();
+            return createrecord;
+        } else {
+            /*Toast.makeText(RunTrailMapActivity.this, "没有记录到路径", Toast.LENGTH_SHORT)
+                    .show();*/
+            return -1;
+        }
+
+    }
+
+    public static String getDuration(long mStartTime,long mEndTime) {
+        return String.valueOf((mEndTime - mStartTime) / 1000f);
+    }
+
+    public static float getDistance(List<AMapLocation> list) {
+        float distance = 0;
+        if (list == null || list.size() == 0) {
+            return distance;
+        }
+        for (int i = 0; i < list.size() - 1; i++) {
+            AMapLocation firstpoint = list.get(i);
+            AMapLocation secondpoint = list.get(i + 1);
+            LatLng firstLatLng = new LatLng(firstpoint.getLatitude(), firstpoint.getLongitude());
+            LatLng secondLatLng = new LatLng(secondpoint.getLatitude(), secondpoint.getLongitude());
+            double betweenDis = AMapUtils.calculateLineDistance(firstLatLng, secondLatLng);
+            distance = (float) (distance + betweenDis);
+        }
+        return distance;
+    }
+
+    public static String getAverage(float distance,long mStartTime,long mEndTime) {
+        return String.valueOf(distance / (float) (mEndTime - mStartTime));
+    }
+
+    public static String getPathLineString(List<AMapLocation> list) {
+        if (list == null || list.size() == 0) {
+            return "";
+        }
+        StringBuffer pathline = new StringBuffer();
+        for (int i = 0; i < list.size(); i++) {
+            AMapLocation location = list.get(i);
+            String locString = amapLocationToString(location);
+            pathline.append(locString).append(";");
+        }
+        String pathLineString = pathline.toString();
+        pathLineString = pathLineString.substring(0,
+                pathLineString.length() - 1);
+        return pathLineString;
+    }
+
+    public static String amapLocationToString(AMapLocation location) {
+        StringBuffer locString = new StringBuffer();
+        locString.append(location.getLatitude()).append(",");
+        locString.append(location.getLongitude()).append(",");
+        locString.append(location.getProvider()).append(",");
+        locString.append(location.getTime()).append(",");
+        locString.append(location.getSpeed()).append(",");
+        locString.append(location.getBearing());
+        return locString.toString();
+    }
 }

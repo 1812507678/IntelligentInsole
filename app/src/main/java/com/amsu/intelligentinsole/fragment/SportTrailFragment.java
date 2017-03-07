@@ -76,18 +76,18 @@ public class SportTrailFragment extends Fragment implements AMap.OnMapLoadedList
     private void initView(Bundle savedInstanceState) {
         mv_finish_map = (MyMapView) inflate.findViewById(R.id.mv_finish_map);
         mv_finish_map.onCreate(savedInstanceState);// 此方法必须重写
-        RadioGroup gv_finish_type = (RadioGroup) inflate.findViewById(R.id.gv_finish_type);
+        /*RadioGroup gv_finish_type = (RadioGroup) inflate.findViewById(R.id.gv_finish_type);
         RadioButton rb_finish_oringinal = (RadioButton) inflate.findViewById(R.id.rb_finish_oringinal);
-        RadioButton rb_finish_grasp = (RadioButton) inflate.findViewById(R.id.rb_finish_grasp);
+        RadioButton rb_finish_grasp = (RadioButton) inflate.findViewById(R.id.rb_finish_grasp);*/
 
         tv_finish_mileage = (TextView) inflate.findViewById(R.id.tv_finish_mileage);
         tv_finish_time = (TextView) inflate.findViewById(R.id.tv_finish_time);
         tv_finish_speed = (TextView) inflate.findViewById(R.id.tv_finish_speed);
         tv_finish_consume = (TextView) inflate.findViewById(R.id.tv_finish_consume);
-
+/*
         MyOcClickListener myOcClickListener = new MyOcClickListener();
         rb_finish_oringinal.setOnClickListener(myOcClickListener);
-        rb_finish_grasp.setOnClickListener(myOcClickListener);
+        rb_finish_grasp.setOnClickListener(myOcClickListener);*/
 
 
 
@@ -230,7 +230,7 @@ public class SportTrailFragment extends Fragment implements AMap.OnMapLoadedList
         setupRecord();
     }
 
-    class MyOcClickListener implements View.OnClickListener{
+    /*class MyOcClickListener implements View.OnClickListener{
 
         @Override
         public void onClick(View v) {
@@ -245,7 +245,7 @@ public class SportTrailFragment extends Fragment implements AMap.OnMapLoadedList
 
             }
         }
-    }
+    }*/
 
 
 }

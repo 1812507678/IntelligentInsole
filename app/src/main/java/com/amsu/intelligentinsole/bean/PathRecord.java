@@ -1,5 +1,6 @@
 package com.amsu.intelligentinsole.bean;
 
+
 import com.amap.api.location.AMapLocation;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.List;
 public class PathRecord {
 	private AMapLocation mStartPoint;
 	private AMapLocation mEndPoint;
-	private List<AMapLocation> mPathLinePoints = new ArrayList<AMapLocation>();
+	private List<AMapLocation> mPathLinePoints = new ArrayList<>();
 	private String mDistance;
 	private String mDuration;
 	private String mAveragespeed;
@@ -24,6 +25,7 @@ public class PathRecord {
 	public PathRecord() {
 
 	}
+
 
 	public int getId() {
 		return mId;
@@ -101,4 +103,5 @@ public class PathRecord {
 		record.append("duration:" + getDuration() + "s");
 		return record.toString();
 	}
+
 }

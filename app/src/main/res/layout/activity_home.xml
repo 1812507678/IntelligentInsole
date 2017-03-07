@@ -66,7 +66,7 @@
             android:id="@+id/tv_home_mails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="运动0公里"
+            android:text="运动0.0公里"
             android:layout_below="@+id/rl_home_r1"
             android:layout_marginTop="@dimen/x140"
             android:layout_centerHorizontal="true"/>
